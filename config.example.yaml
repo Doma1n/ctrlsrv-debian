@@ -1,0 +1,37 @@
+server:
+  # Local HTTP API address (for kiosk UI and internal use)
+  listen_addr: "127.0.0.1:8080"
+
+  # QUIC/HTTP3 address for edge and mobile clients
+  # Leave empty to disable QUIC server
+  quic_addr: "0.0.0.0:8443"
+
+storage:
+  # Mandatory storage path - system depends on this being mounted
+  path: "/srv/storage1"
+
+cups:
+  # CUPS server URL
+  url: "http://localhost:631"
+
+  # Default printer name
+  printer: "Canon_TR0000"
+
+edge:
+  # AWS edge proxy endpoint (QUIC)
+  # Format: hostname:port or empty to disable
+  endpoint: "edge.example.com:443"
+
+  # TLS certificate and key for QUIC server
+  # Required if quic_addr is set
+  tls_cert: "/etc/homelab/tls/cert.pem"
+  tls_key: "/etc/homelab/tls/key.pem"
+
+wireguard:
+  # WireGuard interface name
+  interface: "wg0"
+
+  # Networks allowed to access services
+  allowed_networks:
+    - "192.168.0.0/24"  # Local LAN
+    - "10.8.0.0/24"     # WireGuard VPN
