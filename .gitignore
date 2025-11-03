@@ -1,0 +1,114 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+srvhubd
+ctrlsrvd
+
+# Go
+go.work
+*.prof
+*.pprof
+vendor/
+
+# Secrets - CRITICAL
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+secrets/
+.env
+.env.*
+*.secret
+credentials*
+auth.json
+token.json
+
+# WireGuard
+wg0.conf
+*.conf
+privatekey
+publickey
+
+# AWS
+.aws/
+terraform.tfvars
+*.tfstate
+*.tfstate.backup
+
+# SSH
+id_rsa
+id_ed25519
+id_ecdsa
+authorized_keys
+known_hosts
+
+# Configs with real data
+config.yaml
+config.prod.yaml
+config.local.yaml
+*.local.*
+*.prod.*
+
+# Build artifacts
+*.iso
+*.img
+*.qcow2
+chroot/
+binary/
+live-build/binary/
+live-build/chroot/
+debian-iso/binary/
+debian-iso/chroot/
+
+# IDE - Keep some .idea/ files
+.vscode/
+.idea/*
+!.idea/runConfigurations/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/shelf/
+.idea/dictionaries/
+.idea/dataSources*
+.idea/httpRequests/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temp
+tmp/
+temp/
+*.tmp
+*.log
+*.bak
+*.backup
+
+# Test coverage
+coverage.out
+coverage.html
+
+# Don't commit real systemd override files
+*.service.d/local.conf
+
+# Don't commit real database files
+*.db
+*.sqlite
+*.sqlite3
