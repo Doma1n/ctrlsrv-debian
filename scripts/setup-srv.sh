@@ -222,22 +222,26 @@ if command -v vmware-user &>/dev/null; then
     vmware-user &
 fi
 
-# Start ctrlsrvd (if installed)
-if [ -f /usr/local/bin/ctrlsrvd ]; then
-    /usr/local/bin/ctrlsrvd &
+# Wait for ctrlsrvd to be ready
+sleep 3
+
+# Open kiosk browser (surf preferred)
+if command -v surf &>/dev/null; then
+    surf -F http://localhost:8080 &
+elif command -v netsurf-gtk &>/dev/null; then
+    netsurf-gtk -f http://localhost:8080 &
 else
-    # Fallback: show message
-    xfce4-terminal -e "bash -c 'echo ctrlsrvd not installed yet; echo Install it with: make install; bash'" &
+    chromium --kiosk --app=http://localhost:8080 --incognito &
 fi
 
-# Watchdog: restart if crashes
+# Watchdog: restart browser if it crashes
 while true; do
     sleep 5
-    if [ -f /usr/local/bin/ctrlsrvd ]; then
-        if ! pgrep -f ctrlsrvd; then
-            logger -t openbox "ctrlsrvd crashed, restarting..."
-            /usr/local/bin/ctrlsrvd &
-        fi
+    if ! pgrep -x surf &>/dev/null && \
+       ! pgrep -x netsurf-gtk &>/dev/null && \
+       ! pgrep -x chromium &>/dev/null; then
+        logger -t openbox "Browser crashed, restarting..."
+        surf -F http://localhost:8080 &
     fi
 done
 EOF

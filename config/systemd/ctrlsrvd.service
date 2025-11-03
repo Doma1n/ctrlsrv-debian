@@ -1,0 +1,44 @@
+[Unit]
+Description=Control Server Daemon (ctrlsrv)
+Documentation=https://github.com/yourusername/ctrlsrv
+After=network-online.target local-fs.target
+Wants=network-online.target
+Requires=local-fs.target
+RequiresMountsFor=/srv/storage1
+
+[Service]
+Type=simple
+User=ctrlsrv
+Group=ctrlsrv
+
+# Environment
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/ctrlsrv/.Xauthority
+Environment=CONFIG_PATH=/etc/ctrlsrv/config.yaml
+
+# Executable
+ExecStart=/usr/local/bin/ctrlsrvd
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=false
+ReadWritePaths=/srv/storage1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ctrlsrvd
+
+# Resource limits
+MemoryMax=512M
+TasksMax=100
+
+[Install]
+WantedBy=graphical.target

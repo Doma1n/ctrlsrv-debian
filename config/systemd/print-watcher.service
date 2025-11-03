@@ -1,0 +1,34 @@
+[Unit]
+Description=Print Watcher Service
+Documentation=https://github.com/yourusername/ctrlsrv
+After=cups.service local-fs.target
+Requires=local-fs.target
+RequiresMountsFor=/srv/storage1
+Wants=cups.service
+
+[Service]
+Type=simple
+User=ctrlsrv
+Group=lpadmin
+
+# Executable
+ExecStart=/usr/local/bin/print-watcher.sh
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/srv/storage1/printdrop
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=print-watcher
+
+[Install]
+WantedBy=multi-user.target

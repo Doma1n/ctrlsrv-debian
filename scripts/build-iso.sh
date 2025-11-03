@@ -105,6 +105,7 @@ onboard
 xfce4-terminal
 pcmanfm
 lxappearance
+surf
 
 # Remote Access
 xrdp

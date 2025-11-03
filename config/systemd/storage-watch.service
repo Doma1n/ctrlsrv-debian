@@ -1,0 +1,28 @@
+[Unit]
+Description=Storage Monitor Service
+Documentation=https://github.com/yourusername/ctrlsrv
+After=local-fs.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+# Executable
+ExecStart=/usr/local/bin/storage-watch.sh
+
+# Restart policy
+Restart=always
+RestartSec=5
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=storage-watch
+
+[Install]
+WantedBy=multi-user.target
